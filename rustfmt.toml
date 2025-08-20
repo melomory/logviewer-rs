@@ -1,0 +1,13 @@
+# See https://rust-lang.github.io/rustfmt
+
+# Rust language edition to be used by the parser.
+edition = "2024"
+style_edition = "2024"
+
+max_width = 100
+chain_width = 80
+fn_call_width = 80
+group_imports = "StdExternalCrate"
+imports_granularity = "Crate"
+fn_params_layout = "Tall"
+spaces_around_ranges = true
