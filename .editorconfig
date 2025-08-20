@@ -1,0 +1,20 @@
+# Version: 1.0.0 (see https://semver.org/)
+# Updated: 2025-08-19
+
+# See https://editorconfig.org/ for more information about .editorconfig files.
+
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.rs]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+[*.md]
+trim_trailing_whitespace = false
