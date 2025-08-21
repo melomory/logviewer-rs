@@ -56,3 +56,5 @@ Desktop.ini
 # Other
 # -------------------------------
 *.log
+!src/tests/**/*.log
+!src/examples/**/*.log
