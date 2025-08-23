@@ -1,28 +1,32 @@
 use crate::{
     config::schema::Config,
-    core::{parser::ShortLogParser, parser_registry::ParserRegistry},
+    core::{models::LogEntry, parser::ShortLogParser, parser_registry::ParserRegistry},
+    io::local,
 };
 
 pub struct App {
     config: Config,
+    logs: Vec<LogEntry>,
 }
 
 impl App {
     pub fn new(config: Config) -> anyhow::Result<Self> {
-        Ok(Self { config })
+        Ok(Self {
+            config,
+            logs: Vec::new(),
+        })
+    }
+
+    pub fn load_logs(&mut self, path: &str) -> anyhow::Result<()> {
+        self.logs = local::load_local_logs(path)?;
+        Ok(())
     }
 
     pub fn run(&mut self) -> anyhow::Result<()> {
-        println!("App is running!");
-
-        let mut registry = ParserRegistry::new();
-        registry.register(ShortLogParser);
-        //registry.register(StdLogParser);
-
-        let line = r#"{"t":"2025-08-21 13:45:42.344+04:00","pid":"13452+56","l":"Warn","mt":"Client not found"}"#;
-
-        let entry = registry.parse_line(line)?;
-        println!("Parsed: {:?}", entry);
+        // For now just output the result to the console (without TUI).
+        for entry in &self.logs {
+            println!("[{:?}] {:?} - {:?}", entry.level, entry.timestamp, entry.message);
+        }
 
         Ok(())
     }
