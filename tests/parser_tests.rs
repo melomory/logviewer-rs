@@ -1,5 +1,4 @@
 use logviewer::core::{models::LogLevel, parser::{LogParser, ShortLogParser}};
-
 #[test]
 fn test_parse_line() {
     let json = r#"
