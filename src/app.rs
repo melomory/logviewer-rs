@@ -2,11 +2,12 @@ use crate::{
     config::schema::Config,
     core::{models::LogEntry, parser::ShortLogParser, parser_registry::ParserRegistry},
     io::local,
+    ui::tui,
 };
 
 pub struct App {
     config: Config,
-    logs: Vec<LogEntry>,
+    pub(crate) logs: Vec<LogEntry>,
 }
 
 impl App {
@@ -23,11 +24,6 @@ impl App {
     }
 
     pub fn run(&mut self) -> anyhow::Result<()> {
-        // For now just output the result to the console (without TUI).
-        for entry in &self.logs {
-            println!("[{:?}] {:?} - {:?}", entry.level, entry.timestamp, entry.message);
-        }
-
-        Ok(())
+        tui::run(self)
     }
 }
